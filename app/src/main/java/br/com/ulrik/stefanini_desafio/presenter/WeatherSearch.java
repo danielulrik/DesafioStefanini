@@ -8,25 +8,23 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import br.com.ulrik.stefanini_desafio.model.City;
 import br.com.ulrik.stefanini_desafio.model.Data;
 import br.com.ulrik.stefanini_desafio.model.api.WeatherResponse;
-import br.com.ulrik.stefanini_desafio.service.WeatherApi;
+import br.com.ulrik.stefanini_desafio.service.WeatherService;
 import br.com.ulrik.stefanini_desafio.view.WeatherSearchView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by Daniel Ulrik on 03/03/2018.
  */
 
-public class WeatherSearch implements WeatherSearchPresenter, Callback<WeatherResponse> {
+public class WeatherSearch implements WeatherSearchPresenter {
 
     private static final Gson GSON = new Gson();
     private WeatherSearchView view;
+    private int selectedCity;
 
     public WeatherSearch(WeatherSearchView view) {
         this.view = view;
@@ -48,29 +46,22 @@ public class WeatherSearch implements WeatherSearchPresenter, Callback<WeatherRe
     }
 
     @Override
-    public void searchCity(City city) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(WeatherApi.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create(GSON))
-                .build();
+    public void searchCity(int city) {
+        new WeatherService(new WeatherService.OnRequestStatus() {
+            @Override
+            public void success(WeatherResponse weather) {
+                weather.setCityId(selectedCity);
+                view.goToWeatherDetail(weather);
+            }
 
-        WeatherApi weatherApi = retrofit.create(WeatherApi.class);
-        Call<WeatherResponse> weatherCall = weatherApi.getWeather(city.getId(), WeatherApi.API_KEY, "pt", "metric");
-        weatherCall.enqueue(this);
+            @Override
+            public void fail() {
+                showFailMessage();
+            }
+        }).searchCity(selectedCity = city);
     }
 
-    @Override
-    public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
-        if (response.isSuccessful()) {
-            WeatherResponse weather = response.body();
-            view.goToWeatherDetail(weather);
-        } else {
-            view.showMessage("Não foi possível conectar com o serviço, favor verificar sua conexão.");
-        }
-    }
-
-    @Override
-    public void onFailure(Call<WeatherResponse> call, Throwable t) {
+    private void showFailMessage() {
         view.showMessage("Não foi possível conectar com o serviço, favor verificar sua conexão.");
     }
 }

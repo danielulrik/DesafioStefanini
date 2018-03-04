@@ -8,4 +8,6 @@ import br.com.ulrik.stefanini_desafio.model.api.WeatherResponse;
 
 public interface WeatherDetailPresenter {
     void load(WeatherResponse weather);
+
+    void favoriteCity(WeatherResponse response);
 }

@@ -1,9 +1,12 @@
 package br.com.ulrik.stefanini_desafio.model;
 
+import com.raizlabs.android.dbflow.annotation.Table;
+
+import br.com.ulrik.stefanini_desafio.database.AppDatabase;
+
 /**
  * Created by Daniel Ulrik on 03/03/2018.
  */
-
 public class City {
 
     private int id;

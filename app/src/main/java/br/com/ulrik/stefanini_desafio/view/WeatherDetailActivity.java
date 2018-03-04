@@ -1,16 +1,13 @@
 package br.com.ulrik.stefanini_desafio.view;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import br.com.ulrik.stefanini_desafio.R;
 import br.com.ulrik.stefanini_desafio.model.api.WeatherResponse;
@@ -19,6 +16,7 @@ import br.com.ulrik.stefanini_desafio.presenter.WeatherDetailPresenter;
 
 public class WeatherDetailActivity extends AppCompatActivity implements WeatherDetailView {
 
+    private WeatherResponse response;
     private WeatherDetailPresenter presenter;
     private TextView textViewName;
     private TextView textViewDescription;
@@ -40,7 +38,23 @@ public class WeatherDetailActivity extends AppCompatActivity implements WeatherD
         imageViewIcon = findViewById(R.id.image_view_icon);
         textViewDescription = findViewById(R.id.text_view_description);
 
-        presenter.load((WeatherResponse) getIntent().getSerializableExtra(WeatherSearchActivity.WEATHER_DETAILS));
+        response = (WeatherResponse) getIntent().getSerializableExtra(WeatherSearchActivity.WEATHER_DETAILS);
+        presenter.load(response);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.detail_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menu_favorite_city) {
+            presenter.favoriteCity(response);
+        }
+        return true;
     }
 
     @Override
@@ -69,28 +83,7 @@ public class WeatherDetailActivity extends AppCompatActivity implements WeatherD
     }
 
     @Override
-    public void setIcon(final String icon) {
-        // TODO TIRAR DAQUI
-        new AsyncTask<Void, Void, Void>() {
-            Bitmap bmp;
-            @Override
-            protected Void doInBackground(Void[] objects) {
-                URL url = null;
-                try {
-                    url = new URL(icon);
-                    bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void o) {
-                imageViewIcon.setImageBitmap(bmp);
-            }
-        }.execute();
+    public void setIcon(final Bitmap icon) {
+        imageViewIcon.setImageBitmap(icon);
     }
 }

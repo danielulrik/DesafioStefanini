@@ -2,4 +2,6 @@
     <string name="app_name">Stefanini - Desafio mobile</string>
     <string name="title_activity_wheather_search">WheatherSearchActivity</string>
     <string name="cities_title">Selecione a cidade</string>
+    <string name="text_empty_favorites">Você não possui registros de cidades favoritas.</string>
+    <string name="title_favorite_cities">Cidades favoritas</string>
 </resources>

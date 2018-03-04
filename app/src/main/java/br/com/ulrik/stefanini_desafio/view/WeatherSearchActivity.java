@@ -41,7 +41,7 @@ public class WeatherSearchActivity extends AppCompatActivity implements WeatherS
 
     @Override
     public void onItemClick(City city) {
-        presenter.searchCity(city);
+        presenter.searchCity(city.getId());
     }
 
     @Override

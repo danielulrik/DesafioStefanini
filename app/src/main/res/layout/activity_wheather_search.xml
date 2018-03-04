@@ -7,6 +7,7 @@
     tools:context="br.com.ulrik.stefanini_desafio.view.WeatherSearchActivity">
 
     <android.support.v7.widget.RecyclerView
+        android:padding="10dp"
         android:id="@+id/recycler_view_cities"
         android:scrollbars="vertical"
         android:layout_width="match_parent"

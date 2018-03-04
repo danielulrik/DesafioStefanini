@@ -1,5 +1,7 @@
 package br.com.ulrik.stefanini_desafio.view;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by Daniel Ulrik on 04/03/2018.
  */
@@ -15,5 +17,5 @@ public interface WeatherDetailView {
 
     void setDescription(String description);
 
-    void setIcon(String icon);
+    void setIcon(Bitmap icon);
 }
