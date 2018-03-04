@@ -55,6 +55,7 @@ public class WeatherDetail implements WeatherDetailPresenter {
                 (weather != null ? weather.getDescription() : ""),
                 Format.formatTempCelsius(response.getMain().getTemp()));
         favoriteCity.save();
+        view.showMessage("A cidade foi adicionada aos favoritos.");
     }
 
     private static class ImageLoader extends AsyncTask<String, Void, Bitmap> {

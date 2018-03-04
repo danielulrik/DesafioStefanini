@@ -7,5 +7,9 @@ package br.com.ulrik.stefanini_desafio.presenter;
 public interface WeatherSearchPresenter {
     void init();
 
+    /**
+     * Access the weather api and updates the ui
+     * @param city city id
+     */
     void searchCity(int city);
 }

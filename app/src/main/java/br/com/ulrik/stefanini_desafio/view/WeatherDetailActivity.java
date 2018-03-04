@@ -1,5 +1,6 @@
 package br.com.ulrik.stefanini_desafio.view;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import br.com.ulrik.stefanini_desafio.R;
 import br.com.ulrik.stefanini_desafio.model.api.WeatherResponse;
@@ -30,6 +32,7 @@ public class WeatherDetailActivity extends AppCompatActivity implements WeatherD
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather_detail);
         setTitle(getString(R.string.title_detail));
+        if (getSupportActionBar() != null) getSupportActionBar().setHomeButtonEnabled(true);
 
         presenter = new WeatherDetail(this);
         textViewName = findViewById(R.id.text_view_city_name);
@@ -54,6 +57,12 @@ public class WeatherDetailActivity extends AppCompatActivity implements WeatherD
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_favorite_city) {
             presenter.favoriteCity(response);
+        } else if (item.getItemId() == R.id.menu_favorites) {
+            Intent intent = new Intent(this, FavoriteCitiesActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }else if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
         }
         return true;
     }
@@ -86,5 +95,10 @@ public class WeatherDetailActivity extends AppCompatActivity implements WeatherD
     @Override
     public void setIcon(final Bitmap icon) {
         imageViewIcon.setImageBitmap(icon);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

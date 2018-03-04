@@ -18,4 +18,6 @@ public interface WeatherDetailView {
     void setDescription(String description);
 
     void setIcon(Bitmap icon);
+
+    void showMessage(String message);
 }

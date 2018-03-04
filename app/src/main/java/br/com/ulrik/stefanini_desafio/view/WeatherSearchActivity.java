@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.util.List;
@@ -25,6 +26,8 @@ public class WeatherSearchActivity extends AppCompatActivity implements WeatherS
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wheather_search);
         setTitle(R.string.cities_title);
+        if (getSupportActionBar() != null) getSupportActionBar().setHomeButtonEnabled(true);
+
         presenter = new WeatherSearch(this);
         presenter.init();
     }
@@ -54,5 +57,13 @@ public class WeatherSearchActivity extends AppCompatActivity implements WeatherS
     @Override
     public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

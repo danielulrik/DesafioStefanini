@@ -9,5 +9,10 @@ import br.com.ulrik.stefanini_desafio.model.api.WeatherResponse;
 public interface WeatherDetailPresenter {
     void load(WeatherResponse weather);
 
+    /**
+     * Saves the city to the favorite list
+     *
+     * @param response object that will be used to produce the FavoriteCity object
+     */
     void favoriteCity(WeatherResponse response);
 }
