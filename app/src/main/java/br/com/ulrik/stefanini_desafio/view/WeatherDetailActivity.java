@@ -29,6 +29,7 @@ public class WeatherDetailActivity extends AppCompatActivity implements WeatherD
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather_detail);
+        setTitle(getString(R.string.title_detail));
 
         presenter = new WeatherDetail(this);
         textViewName = findViewById(R.id.text_view_city_name);

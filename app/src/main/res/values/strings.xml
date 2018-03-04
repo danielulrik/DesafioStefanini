@@ -4,4 +4,5 @@
     <string name="cities_title">Selecione a cidade</string>
     <string name="text_empty_favorites">Você não possui registros de cidades favoritas.</string>
     <string name="title_favorite_cities">Cidades favoritas</string>
+    <string name="title_detail">Detalhes</string>
 </resources>
