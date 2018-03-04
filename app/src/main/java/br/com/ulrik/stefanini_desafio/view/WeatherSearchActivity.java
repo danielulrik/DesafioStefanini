@@ -26,7 +26,10 @@ public class WeatherSearchActivity extends AppCompatActivity implements WeatherS
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wheather_search);
         setTitle(R.string.cities_title);
-        if (getSupportActionBar() != null) getSupportActionBar().setHomeButtonEnabled(true);
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
+        }
 
         presenter = new WeatherSearch(this);
         presenter.init();

@@ -32,7 +32,10 @@ public class WeatherDetailActivity extends AppCompatActivity implements WeatherD
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather_detail);
         setTitle(getString(R.string.title_detail));
-        if (getSupportActionBar() != null) getSupportActionBar().setHomeButtonEnabled(true);
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
+        }
 
         presenter = new WeatherDetail(this);
         textViewName = findViewById(R.id.text_view_city_name);
