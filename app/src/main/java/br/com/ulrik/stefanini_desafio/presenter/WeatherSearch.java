@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 
 import br.com.ulrik.stefanini_desafio.model.City;
 import br.com.ulrik.stefanini_desafio.model.Data;
-import br.com.ulrik.stefanini_desafio.model.api.ResponseWeather;
+import br.com.ulrik.stefanini_desafio.model.api.WeatherResponse;
 import br.com.ulrik.stefanini_desafio.service.WeatherApi;
 import br.com.ulrik.stefanini_desafio.view.WeatherSearchView;
 import retrofit2.Call;
@@ -23,7 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by Daniel Ulrik on 03/03/2018.
  */
 
-public class WeatherSearch implements WeatherSearchPresenter, Callback<ResponseWeather> {
+public class WeatherSearch implements WeatherSearchPresenter, Callback<WeatherResponse> {
 
     private static final Gson GSON = new Gson();
     private WeatherSearchView view;
@@ -55,22 +55,22 @@ public class WeatherSearch implements WeatherSearchPresenter, Callback<ResponseW
                 .build();
 
         WeatherApi weatherApi = retrofit.create(WeatherApi.class);
-        Call<ResponseWeather> weatherCall = weatherApi.getWeather(city.getId(), WeatherApi.API_KEY, "pt", "metric");
+        Call<WeatherResponse> weatherCall = weatherApi.getWeather(city.getId(), WeatherApi.API_KEY, "pt", "metric");
         weatherCall.enqueue(this);
     }
 
     @Override
-    public void onResponse(Call<ResponseWeather> call, Response<ResponseWeather> response) {
+    public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
         if (response.isSuccessful()) {
-            ResponseWeather weather = response.body();
-            view.goToCityDetail(weather);
+            WeatherResponse weather = response.body();
+            view.goToWeatherDetail(weather);
         } else {
             view.showMessage("Não foi possível conectar com o serviço, favor verificar sua conexão.");
         }
     }
 
     @Override
-    public void onFailure(Call<ResponseWeather> call, Throwable t) {
+    public void onFailure(Call<WeatherResponse> call, Throwable t) {
         view.showMessage("Não foi possível conectar com o serviço, favor verificar sua conexão.");
     }
 }

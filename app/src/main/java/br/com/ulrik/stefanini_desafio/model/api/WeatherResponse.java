@@ -1,9 +1,10 @@
 
 package br.com.ulrik.stefanini_desafio.model.api;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ResponseWeather {
+public class WeatherResponse implements Serializable {
 
     private String name;
     private Main main;

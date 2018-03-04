@@ -1,5 +1,6 @@
 package br.com.ulrik.stefanini_desafio.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,11 +12,12 @@ import java.util.List;
 import br.com.ulrik.stefanini_desafio.R;
 import br.com.ulrik.stefanini_desafio.adapter.CityAdapter;
 import br.com.ulrik.stefanini_desafio.model.City;
-import br.com.ulrik.stefanini_desafio.model.api.ResponseWeather;
+import br.com.ulrik.stefanini_desafio.model.api.WeatherResponse;
 import br.com.ulrik.stefanini_desafio.presenter.WeatherSearch;
 
 public class WeatherSearchActivity extends AppCompatActivity implements WeatherSearchView, CityAdapter.ItemClickListener {
 
+    public static final String WEATHER_DETAILS = "details";
     private WeatherSearch presenter;
 
     @Override
@@ -43,8 +45,10 @@ public class WeatherSearchActivity extends AppCompatActivity implements WeatherS
     }
 
     @Override
-    public void goToCityDetail(ResponseWeather weather) {
-        Toast.makeText(this, weather.toString(), Toast.LENGTH_SHORT).show();
+    public void goToWeatherDetail(WeatherResponse weather) {
+        Intent intent = new Intent(this, WeatherDetailActivity.class);
+        intent.putExtra(WEATHER_DETAILS, weather);
+        startActivity(intent);
     }
 
     @Override

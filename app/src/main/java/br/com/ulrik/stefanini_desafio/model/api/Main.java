@@ -4,7 +4,9 @@ package br.com.ulrik.stefanini_desafio.model.api;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Main {
+import java.io.Serializable;
+
+public class Main implements Serializable {
 
     private double temp;
     @SerializedName("temp_min")

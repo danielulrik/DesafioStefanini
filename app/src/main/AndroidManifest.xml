@@ -21,6 +21,7 @@
         <activity
             android:name=".view.WeatherSearchActivity"
             android:label="@string/title_activity_wheather_search" />
+        <activity android:name=".view.WeatherDetailActivity"></activity>
     </application>
 
 </manifest>

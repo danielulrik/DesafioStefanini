@@ -2,7 +2,9 @@
 package br.com.ulrik.stefanini_desafio.model.api;
 
 
-public class Weather {
+import java.io.Serializable;
+
+public class Weather implements Serializable {
 
     private String description;
     private String icon;
